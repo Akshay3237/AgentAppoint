@@ -1,3 +1,25 @@
+# Node modules for server and client
+/node_modules
+/client/node_modules
+/server/node_modules
+
+# Environment variable files
+.env
+/client/.env
+/server/.env
+
+
+# Build output folders
+/client/build
+/server/build
+
+# VS Code settings folder (optional)
+.vscode/
+
+# MacOS files (optional)
+.DS_Store
+
+
 # Logs
 logs
 *.log
@@ -82,6 +104,14 @@ web_modules/
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
+
+/client/.cache
+/client/.parcel-cache
+
+
+/server/.cache
+/server/.parcel-cache
+
 
 # Next.js build output
 .next
