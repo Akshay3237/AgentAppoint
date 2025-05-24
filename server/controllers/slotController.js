@@ -110,3 +110,60 @@ exports.getFreeSlots = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.bookSlot = async (req, res) => {
+  const { providerUserId, userUserId, startingTime, endingTime, date, purpose } = req.body;
+
+  try {
+    const newSlot = new Slot({
+      providerUserId,
+      userUserId,
+      startingTime,
+      endingTime,
+      date,
+      purpose,
+      status: 'approved'
+    });
+
+    await newSlot.save();
+    res.status(201).json({ message: 'Slot booked successfully', slot: newSlot });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get all slots booked by a user with provider info
+exports.getSlotsBookedByUser = async (req, res) => {
+  const { userId } = req.query;
+
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required' });
+  }
+
+  try {
+    const slots = await Slot.find({ userUserId: userId })
+      .populate('providerUserId', 'fullName email phone service')
+      .sort({ date: -1 });
+
+    const formatted = slots.map(slot => ({
+      _id: slot._id,
+      date: slot.date,
+      startingTime: slot.startingTime,
+      endingTime: slot.endingTime,
+      purpose: slot.purpose,
+      provider: {
+        _id: slot.providerUserId._id,
+        fullName: slot.providerUserId.fullName,
+        email: slot.providerUserId.email,
+        phone: slot.providerUserId.phone,
+        service: slot.providerUserId.service,
+      }
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    console.error('Error fetching booked slots:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
