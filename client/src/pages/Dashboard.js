@@ -12,7 +12,7 @@ const Dashboard = () => {
     const fetchProviders = async () => {
       try {
          const token = getToken();
-          const response = await axios.get(`${API_BASE_URL}/serviceproviders`, {
+          const response = await axios.get(`${API_BASE_URL}/api/users/providers`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

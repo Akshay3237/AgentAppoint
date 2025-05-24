@@ -53,3 +53,13 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Get all users with type 'provider'
+exports.getAllProviders = async (req, res) => {
+  try {
+    const providers = await User.find({ type: 'provider' });
+    res.status(200).json(providers);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch providers' });
+  }
+};
