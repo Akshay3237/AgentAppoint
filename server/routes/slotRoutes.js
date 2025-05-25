@@ -7,7 +7,8 @@ router.get('/check/availability', slotController.checkSlotAvailability);
 router.get('/free', slotController.getFreeSlots);
 router.post('/book',slotController.bookSlot);
 router.get('/booked-by-user', slotController.getSlotsBookedByUser);
-
+router.get('/provider/booked/:id',slotController.getBookedSlotsForProvider);
+router.put('/cancel/:slotId',slotController.cancelAppointment);
 router.post('/', slotController.createSlot);
 router.get('/', slotController.getAllSlots);
 router.get('/:id', slotController.getSlotById);

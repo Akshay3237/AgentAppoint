@@ -7,6 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const slotRoutes = require('./routes/slotRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const authRoutes = require('./routes/authRoutes');
+const geminiRouter = require('./routes/gemini');
 
 dotenv.config();
 const app = express();
@@ -38,11 +39,10 @@ const verifyToken = (req, res, next) => {
   }
 };
 app.use(verifyToken);
-
 app.use('/api/users', userRoutes);
 app.use('/api/slots',slotRoutes);
 app.use('/api/chats', chatRoutes);
-
+app.use('/api/gemini', geminiRouter);
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log('MongoDB connected');

@@ -1,0 +1,254 @@
+/* .chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.chatbot-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.chatbot-box {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-response {
+  margin-top: 10px;
+  background-color: #f1f1f1;
+  padding: 8px;
+  border-radius: 4px;
+} */
+/* ProviderDashboard.css */
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2;
+}
+
+div > div[style*="border: 1px solid"] {
+  background: #fafafa;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+button {
+  cursor: pointer;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(0.9);
+}
+
+button[style*="background-color: red"] {
+  background-color: #e74c3c;
+  color: white;
+}
+
+button[style*="background-color: red"]:hover {
+  background-color: #c0392b;
+}
+
+/* Chatbot toggle button fixed on bottom right */
+.chatbot-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: #4a90e2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(74,144,226,0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.chatbot-toggle:hover {
+  background: #357ABD;
+}
+
+.chatbot-icon {
+  width: 36px;
+  height: 36px;
+}
+
+/* Chatbot chat box */
+.chatbot-box {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 320px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chatbot-box textarea {
+  width: 100;
+  resize: none;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.chatbot-box textarea:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px #4a90e2;
+}
+
+.chatbot-box button {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chatbot-box button:hover:not(:disabled) {
+  background-color: #357ABD;
+}
+
+.chat-response {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #444;
+  min-height: 40px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+/* No Slots Message */
+.no-slots-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 40px;
+  font-style: italic;
+}
+
+/* Slots List Container */
+.slots-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0 10px; /* some side padding */
+  max-width: 9000px; /* max container width */
+  margin: 0 auto;
+}
+
+/* Individual Slot Card */
+.slot-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.slot-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Slot details */
+.slot-card p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.slot-card strong {
+  color: #222;
+}
+
+/* Cancel Appointment Button */
+.cancel-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #e53e3e; /* Red */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #c53030; /* Darker red on hover */
+}
+
+.cancel-btn:focus {
+  outline: 2px solid #f56565;
+  outline-offset: 2px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 400px) {
+  .chatbot-box {
+    width: 90vw;
+    right: 5vw;
+  }
+  .chatbot-toggle {
+    width: 50px;
+    height: 50px;
+  }
+  .chatbot-icon {
+    width: 28px;
+    height: 28px;
+  }
+}

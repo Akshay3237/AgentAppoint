@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import './MySlotsPage.css';
 import axios from 'axios';
 import API_BASE_URL from '../config';
 import { getToken } from '../utils/auth';
@@ -40,7 +41,7 @@ const MySlotsPage = () => {
   }, [token, navigate, user]); // `user` is stable now due to useMemo
 
   return (
-    <div className="my-slots-container" style={{ padding: '20px' }}>
+    <div className="my-slots-container">
       <h2>My Booked Slots</h2>
       <button onClick={() => navigate('/user-dashboard')}>Back to Providers</button>
 
@@ -49,20 +50,23 @@ const MySlotsPage = () => {
       ) : mySlots.length === 0 ? (
         <p>You have no booked slots.</p>
       ) : (
-        mySlots.map((slot) => (
-          <div key={slot._id} style={{ border: '1px solid #ccc', borderRadius: 6, padding: 15, marginBottom: 15 }}>
-            <h4>Provider: {slot.provider.fullName}</h4>
-            <p><strong>Service:</strong> {slot.provider.service || 'Not specified'}</p>
-            <p><strong>Email:</strong> {slot.provider.email}</p>
-            <p><strong>Phone:</strong> {slot.provider.phone}</p>
-            <p><strong>Date:</strong> {slot.date}</p>
-            <p><strong>Time:</strong> {slot.startingTime} - {slot.endingTime}</p>
-            <p><strong>Purpose:</strong> {slot.purpose}</p>
-          </div>
-        ))
+        <div className="slots-grid">
+          {mySlots.map((slot) => (
+            <div key={slot._id} className="slot-card">
+              <h4>Provider: {slot.provider.fullName}</h4>
+              <p><strong>Service:</strong> {slot.provider.service || 'Not specified'}</p>
+              <p><strong>Email:</strong> {slot.provider.email}</p>
+              <p><strong>Phone:</strong> {slot.provider.phone}</p>
+              <p><strong>Date:</strong> {slot.date}</p>
+              <p><strong>Time:</strong> {slot.startingTime} - {slot.endingTime}</p>
+              <p><strong>Purpose:</strong> {slot.purpose}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
+
 };
 
 export default MySlotsPage;

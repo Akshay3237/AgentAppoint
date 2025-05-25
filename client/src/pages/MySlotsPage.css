@@ -1,0 +1,72 @@
+.my-slots-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.my-slots-container h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.my-slots-container button {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.my-slots-container button:hover {
+  background-color: #0056b3;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.slot-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.slot-card:hover {
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
+}
+
+.slot-card h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.slot-card p {
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+/* Responsive: stack cards in single column on small screens */
+@media (max-width: 700px) {
+  .slots-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .my-slots-container button {
+    width: 100%;
+  }
+}

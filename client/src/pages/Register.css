@@ -3,63 +3,48 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f2f6ff;
+  background: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .register-form {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 380px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .register-form h2 {
-  margin-bottom: 20px;
-  text-align: center;
+  margin-bottom: 30px;
   color: #333;
+  font-weight: 600;
 }
 
-.register-form input,
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"],
+.register-form input[type="tel"],
 .register-form select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1.8px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
-.register-form button {
-  width: 100%;
-  padding: 12px;
-  background-color: #4e74f9;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.register-form button:hover {
-  background-color: #3c5ed9;
-}
-
-.login-redirect {
-  margin-top: 12px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.login-redirect a {
-  color: #4e74f9;
-  text-decoration: none;
-}
-
-.login-redirect a:hover {
-  text-decoration: underline;
+.register-form input[type="text"]:focus,
+.register-form input[type="email"]:focus,
+.register-form input[type="password"]:focus,
+.register-form input[type="tel"]:focus,
+.register-form select:focus {
+  border-color: #4a90e2;
+  outline: none;
 }
 
 .password-field {
@@ -69,13 +54,55 @@
 }
 
 .password-field input {
-  width: 100%;
-  padding-right: 35px;
+  flex-grow: 1;
+  padding-right: 40px;
 }
 
 .eye-icon {
   position: absolute;
-  right: 10px;
+  right: 12px;
   cursor: pointer;
+  color: #999;
+  font-size: 18px;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.eye-icon:hover {
+  color: #4a90e2;
+}
+
+.register-form button {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-form button:hover {
+  background-color: #357ab8;
+}
+
+.login-redirect {
+  margin-top: 20px;
+  font-size: 14px;
   color: #666;
+}
+
+.login-redirect a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-redirect a:hover {
+  text-decoration: underline;
+  color: #357ab8;
 }

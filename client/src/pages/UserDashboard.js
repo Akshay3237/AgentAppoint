@@ -4,6 +4,7 @@ import './UserDashboard.css';
 import API_BASE_URL from '../config';
 import { getToken } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
+import geminiIcon from '../assets/chatBot.png'; // Use your chatbot icon image
 
 const UserDashboard = () => {
   const [providers, setProviders] = useState([]);
@@ -16,6 +17,45 @@ const UserDashboard = () => {
   const [purpose, setPurpose] = useState('');
   const navigate = useNavigate();
   const token = getToken();
+  const [showChat, setShowChat] = useState(false);
+  const [chatPrompt, setChatPrompt] = useState('');
+  const [chatResponse, setChatResponse] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // or wherever your token is saved
+    localStorage.removeItem('user');  // clear stored user info
+    navigate('/login');
+  };
+
+  const handleChatSubmit = async () => {
+    if (!chatPrompt.trim()) return;
+
+    setChatLoading(true);
+    setChatResponse('');
+    const user = JSON.parse(localStorage.getItem('user'));
+    try {
+      const res = await axios.post(
+        `${API_BASE_URL}/api/gemini/book-via-ai`,
+        {
+          prompt: chatPrompt,
+          userUserId: user._id,
+        },  // body
+        {                       // config
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setChatResponse(res.data.message || 'No response from AI.');
+    } catch (error) {
+      console.error('Chatbot error:', error);
+      setChatResponse(error.response?.data?.error || 'An error occurred');
+    } finally {
+      setChatLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -98,12 +138,25 @@ const UserDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h2>Available Service Providers</h2>
-        <button onClick={() => navigate('/my-slots')} style={{ marginLeft: 10 }}>
-        My Slots
-      </button>
+      <div className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h2>Available Service Providers</h2>
+        <div>
+          <button onClick={() => navigate('/my-slots')} style={{ marginRight: 10 }}>
+            My Slots
+          </button>
+          <button onClick={handleLogout} style={{ backgroundColor: '#d9534f', color: 'white', border: 'none', padding: '8px 12px', borderRadius: 4, cursor: 'pointer' }}>
+            Logout
+          </button>
+        </div>
+      </div>
       <label>
-        Select Date: <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} />
+        Select Date: <input
+          type="date"
+          value={selectedDate}
+          min={new Date().toISOString().split('T')[0]}
+          onChange={e => setSelectedDate(e.target.value)}
+        />
+
       </label>
 
       <div className="search-container">
@@ -144,29 +197,51 @@ const UserDashboard = () => {
                 </div>
 
                 {selectedSlot && (
-  <div className="booking-section">
-    <label>
-      Purpose: 
-      <input
-        type="text"
-        value={purpose}
-        onChange={(e) => setPurpose(e.target.value)}
-        placeholder="Enter purpose"
-        style={{ marginLeft: 10, padding: 4, width: '60%' }}
-      />
-    </label>
-    <br />
-    <button className="book-button" onClick={handleBookSlot} disabled={!purpose.trim()}>
-      Book Now
-    </button>
-  </div>
-)}
+                  <div className="booking-section">
+                    <label>
+                      Purpose:
+                      <input
+                        type="text"
+                        value={purpose}
+                        onChange={(e) => setPurpose(e.target.value)}
+                        placeholder="Enter purpose"
+                        style={{ marginLeft: 10, padding: 4, width: '60%' }}
+                      />
+                    </label>
+                    <br />
+                    <button className="book-button" onClick={handleBookSlot} disabled={!purpose.trim()}>
+                      Book Now
+                    </button>
+                  </div>
+                )}
 
               </div>
             )}
           </div>
         ))}
       </div>
+      {/* Floating Chatbot Button */}
+      <div className="chatbot-toggle" onClick={() => setShowChat(!showChat)}>
+        <img src={geminiIcon} alt="Chatbot" className="chatbot-icon" />
+      </div>
+
+      {/* Chatbot Box */}
+      {showChat && (
+        <div className="chatbot-box">
+          <textarea
+            rows="3"
+            value={chatPrompt}
+            onChange={(e) => setChatPrompt(e.target.value)}
+            placeholder="book your appoitment..."
+          />
+          <button onClick={handleChatSubmit} disabled={chatLoading}>
+            {chatLoading ? 'Thinking...' : 'Ask'}
+          </button>
+          <div className="chat-response">{chatResponse}</div>
+        </div>
+      )}
+
+
     </div>
   );
 };
